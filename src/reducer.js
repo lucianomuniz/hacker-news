@@ -23,7 +23,7 @@ const reducer = (state, action) => {
         hits: state.hits.filter((story) => story.objectID !== action.payload),
       };
     case HANDLE_SEARCH:
-      return { ...state, query: action.payload, nbPages: 0 };
+      return { ...state, query: action.payload, page: 0 };
     case HANDLE_PAGE:
       let goPage;
       if (action.payload === 'inc') {
