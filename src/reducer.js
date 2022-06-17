@@ -20,10 +20,25 @@ const reducer = (state, action) => {
     case REMOVE_STORY:
       return {
         ...state,
-        hits: state.hits.filter((story) => story.objectID != action.payload),
+        hits: state.hits.filter((story) => story.objectID !== action.payload),
       };
     case HANDLE_SEARCH:
       return { ...state, query: action.payload, nbPages: 0 };
+    case HANDLE_PAGE:
+      let goPage;
+      if (action.payload === 'inc') {
+        goPage = state.page + 1;
+        if (goPage > state.nbPages - 1) {
+          goPage = 0;
+        }
+      }
+      if (action.payload === 'dec') {
+        goPage = state.page - 1;
+        if (goPage < 0) {
+          goPage = state.nbPages - 1;
+        }
+      }
+      return { ...state, page: goPage };
     default:
       throw new Error(`no matching "${action.type}" action`);
   }
